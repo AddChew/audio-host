@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize')
 const db = require('../utils/database')
+const File = require('../models/file')
 
 const User = db.define('User', {
     uuid: {
@@ -16,5 +17,10 @@ const User = db.define('User', {
         allowNull: false
     }
 })
+
+User.hasMany(File, {
+    foreignKey: 'ownerUuid'
+})
+File.belongsTo(User)
 
 module.exports = User
