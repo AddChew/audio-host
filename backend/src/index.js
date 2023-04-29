@@ -1,15 +1,13 @@
 require("dotenv").config()
 
+const bcrypt = require('bcrypt')
 const express = require('express')
+const User = require('./models/user')
 const bodyparser = require('body-parser')
 const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
 const { router: authRouter, passport } = require('./routes/auth')
-
-// TODO: see if we need these imports
-// const User = require('./models/user')
-// const File = require('./models/file')
 
 const app = express()
 app.use(bodyparser.json())
@@ -56,3 +54,19 @@ sequelize.sync()
             app.listen(3000)
          })
          .catch(err => console.log(err))
+
+// create admin user
+User.findOrCreate({
+    where: {
+        username: process.env.ADMIN_USER,
+        password: bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
+        isAdmin: true
+    }
+}).then((user, created) => {
+    const username = user.username
+    if (created) {
+        console.log(`Created admin user ${username}`)
+        return
+    }
+    console.log(`Found admin user ${username}`)
+}).catch(err => console.log(err))
