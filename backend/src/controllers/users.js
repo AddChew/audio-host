@@ -9,11 +9,11 @@ exports.getUsers = async (req, res, next) => {
                 exclude: ['password']
             }
         })
-        res.status(200).json({ users: users })
+        return res.status(200).json({ users: users })
     } 
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
 
@@ -28,11 +28,11 @@ exports.getUser = async (req, res, next) => {
         if (user) {
             return res.status(200).json({ user: user })
         }
-        res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found!'})
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
 
@@ -46,14 +46,14 @@ exports.createUser = async (req, res, next) => {
             isAdmin: isAdmin ? isAdmin : false           
         })
         console.log(`Created user ${user.username}`)
-        res.status(201).json({
+        return res.status(201).json({
             message: `User ${user.username} created successfully!`,
             user: user
         })        
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
 
@@ -69,11 +69,11 @@ exports.updateUser = async (req, res, next) => {
             user = await user.save()
             return res.status(204).json({ message: 'User updated!', user: user })
         }
-        res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found!'})
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
 
@@ -85,10 +85,10 @@ exports.deleteUser = async (req, res, next) => {
             await user.destroy()
             return res.status(204).json({ message: 'User deleted!' })
         }
-        res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found!'})
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }

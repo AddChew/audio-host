@@ -11,11 +11,11 @@ exports.getFiles = async (req, res, next) => {
                 ownerUuid: req.user.uuid
             }
         })
-        res.status(200).json({ files: files })
+        return res.status(200).json({ files: files })
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
 
@@ -31,11 +31,11 @@ exports.getFile = async (req, res, next) => {
         if (file) {
             return res.status(200).json({ file: file })
         }
-        res.status(404).json({ message: 'File not found!' })
+        return res.status(404).json({ message: 'File not found!' })
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return es.status(404).json(err)
     }
 }
 
@@ -51,13 +51,13 @@ exports.createFile = async (req, res, next) => {
             ownerUuid: req.user.uuid
         })
         console.log(`Created file ${file.filename}`)
-        res.status(201).json({
+        return res.status(201).json({
             message: `File ${file.filename} created successfully!`,
             file: file
         })       
     }
     catch (err) {
         console.log(err)
-        res.status(404).json(err)
+        return res.status(404).json(err)
     }
 }
