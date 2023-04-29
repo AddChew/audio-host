@@ -15,3 +15,6 @@ sequelize
 
 src/utils/database.js
 - handles the postgres database connection
+
+src/models/user.js
+- define user database model
