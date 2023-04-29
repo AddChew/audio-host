@@ -27,27 +27,17 @@ exports.registerUser = async (req, res, next) => {
 }
 
 exports.loginUser = async (req, res, next) => {
-    console.log("logging in")
     passport.authenticate('login', (err, user, info, status) => {
         if (err) {
-            console.log("err")
             return next(err)
         }
         if (!user) {
-            console.log("no user")
-            console.log(info)
-            return {
-                message: info
-            }
+            return next(info)
         }
-        console.log("try to loging")
         req.login(user, err => {
             if (err) {
-                console.log(err)
-                console.log('login err')
                 return next(err)
             }
-            console.log('login liao')
             return res.status(200).json({
                 message: 'Logged in successfully',
                 user: user
