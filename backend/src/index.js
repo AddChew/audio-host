@@ -19,7 +19,6 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
-    saveUninitialized: false,
     proxy: true
 }))
 app.use(passport.authenticate('session'))
@@ -49,22 +48,22 @@ sessionStore.sync()
 sequelize.sync()
          .then(results => {
             console.log('Database connected')
-            User.findOrCreate({
-                where: {
-                    username: process.env.ADMIN_USER,
-                    password: bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
-                    isAdmin: true
-                }
-            })
-            .then((user, created) => {
-                const username = user.username
-                if (created) {
-                    console.log(`Created admin user ${username}`)
-                    return
-                }
-                console.log(`Found admin user ${username}`)                
-            })
-            .catch(err => console.log(err))
+            // User.findOrCreate({
+            //     where: {
+            //         username: process.env.ADMIN_USER,
+            //         password: bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
+            //         isAdmin: true
+            //     }
+            // })
+            // .then((user, created) => {
+            //     const username = user.username
+            //     if (created) {
+            //         console.log(`Created admin user ${username}`)
+            //         return
+            //     }
+            //     console.log(`Found admin user ${username}`)                
+            // })
+            // .catch(err => console.log(err))
             app.listen(3000)
          })
          .catch(err => console.log(err))
