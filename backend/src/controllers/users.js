@@ -1,9 +1,11 @@
 const User = require('../models/user')
-const Attributes = ['uuid', 'username', 'isAdmin', 'createdAt', 'updatedAt']
 
 // get all users
 exports.getUsers = (req, res, next) => {
-    User.findAll({ attributes: Attributes })
+    User.findAll({
+        attributes: {
+            exclude: ['password']
+        }})
         .then(users => {
             res.status(200).json({ users: users })
         })
@@ -12,7 +14,10 @@ exports.getUsers = (req, res, next) => {
 
 // get user by uuid
 exports.getUser = (req, res, next) => {
-    User.findByPk(req.params.userUuid, { attributes: Attributes })
+    User.findByPk(req.params.userUuid, {
+        attributes: {
+            exclude: ['password']
+        }})
         .then(user => {
             if (user) {
                 return res.status(200).json({ user: user })
@@ -33,7 +38,7 @@ exports.createUser = (req, res, next) => {
         console.log(`Created user ${user.username}`)
         res.status(201).json({
             message: `User ${user.username} created successfully!`,
-            user: user // TODO: restrict the fields returned, exclude password field
+            user: user
         })
     })
     .catch(err => console.log(err))
@@ -47,7 +52,7 @@ exports.updateUser = (req, res, next) => {
                 user.username = req.body.username
                 user.password = req.body.password // TODO: encrypt password before saving to database
                 user.isAdmin = req.body.isAdmin
-                return user.save() // TODO: restrict the fields returned, exclude password field
+                return user.save()
             }
             res.status(404).json({ message: 'User not found!'})
         })
