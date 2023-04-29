@@ -29,7 +29,7 @@ app.use(passport.authenticate('session'))
 
 // test route
 app.get('/', (req, res, next) => {
-    res.send('Ok!')
+    res.send('Ok')
 })
 
 // auth routes

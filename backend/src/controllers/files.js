@@ -31,7 +31,7 @@ exports.getFile = async (req, res, next) => {
         if (file) {
             return res.status(200).json({ file: file })
         }
-        return res.status(404).json({ message: 'File not found!' })
+        return res.status(404).json({ message: 'File not found' })
     }
     catch (err) {
         console.log(err)
@@ -52,7 +52,7 @@ exports.createFile = async (req, res, next) => {
         })
         console.log(`Created file ${file.filename}`)
         return res.status(201).json({
-            message: `File ${file.filename} created successfully!`,
+            message: `File ${file.filename} created successfully`,
             file: file
         })       
     }

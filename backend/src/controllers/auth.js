@@ -14,7 +14,7 @@ exports.registerUser = async (req, res, next) => {
                 return next(err)
             }
             return res.status(201).json({
-                message: 'Registered successfully!',
+                message: 'Registered successfully',
                 user: user
             }) 
         })
@@ -52,7 +52,7 @@ exports.logoutUser = async (req, res, next) => {
             return next(err)
         }
         return res.status(204).json({
-            message: 'Logged out successfully!'
+            message: 'Logged out successfully'
         }) 
     })
 }
@@ -63,4 +63,22 @@ exports.getUser = async (uuid) => {
             exclude: ['password']
         }
     })
+}
+
+exports.checkAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    return res.status(401).json({
+        message: 'Authorization required'
+    })
+}
+
+exports.checkNotAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return res.status(403).json({
+            message: 'You are already logged in'
+        })
+    }
+    return next()
 }

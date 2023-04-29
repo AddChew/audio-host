@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const controller = require('../controllers/users')
+const { checkAuthenticated } = require('../controllers/auth')
 
-router.get('/', controller.getUsers) // GET /users
-router.post('/', controller.createUser) // POST /users
-router.get('/:userUuid', controller.getUser) // GET /users/:userUuid
-router.put('/:userUuid', controller.updateUser) // PUT /users/:userUuid
-router.delete('/:userUuid', controller.deleteUser) // DELETE /users/:userUuid
+router.get('/', checkAuthenticated, controller.getUsers) // GET /users
+router.post('/', checkAuthenticated, controller.createUser) // POST /users
+router.get('/:userUuid', checkAuthenticated, controller.getUser) // GET /users/:userUuid
+router.put('/:userUuid', checkAuthenticated, controller.updateUser) // PUT /users/:userUuid
+router.delete('/:userUuid', checkAuthenticated, controller.deleteUser) // DELETE /users/:userUuid
 
 module.exports = router

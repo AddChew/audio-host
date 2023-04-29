@@ -28,7 +28,7 @@ exports.getUser = async (req, res, next) => {
         if (user) {
             return res.status(200).json({ user: user })
         }
-        return res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found'})
     }
     catch (err) {
         console.log(err)
@@ -47,7 +47,7 @@ exports.createUser = async (req, res, next) => {
         })
         console.log(`Created user ${user.username}`)
         return res.status(201).json({
-            message: `User ${user.username} created successfully!`,
+            message: `User ${user.username} created successfully`,
             user: user
         })        
     }
@@ -67,9 +67,9 @@ exports.updateUser = async (req, res, next) => {
             user.password = password ? bcrypt.hashSync(password, 10) : user.password
             user.isAdmin = isAdmin ? isAdmin : user.isAdmin
             user = await user.save()
-            return res.status(204).json({ message: 'User updated!', user: user })
+            return res.status(204).json({ message: 'User updated', user: user })
         }
-        return res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found'})
     }
     catch (err) {
         console.log(err)
@@ -83,9 +83,9 @@ exports.deleteUser = async (req, res, next) => {
         const user = await User.findByPk(req.params.userUuid)
         if (user) {
             await user.destroy()
-            return res.status(204).json({ message: 'User deleted!' })
+            return res.status(204).json({ message: 'User deleted' })
         }
-        return res.status(404).json({ message: 'User not found!'})
+        return res.status(404).json({ message: 'User not found'})
     }
     catch (err) {
         console.log(err)
