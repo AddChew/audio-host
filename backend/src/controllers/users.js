@@ -2,15 +2,18 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user') // TODO: async, await everything instead of then catch
 
 // get all users
-exports.getUsers = (req, res, next) => {
-    User.findAll({
-        attributes: {
-            exclude: ['password']
-        }})
-        .then(users => {
-            res.status(200).json({ users: users })
+exports.getUsers = async (req, res, next) => {
+    try {
+        const users = await User.findAll({
+            attributes: {
+                exclude: ['password']
+            }
         })
-        .catch(err => console.log(err))
+        res.status(200).json({ users: users })
+    } 
+    catch (err) {
+        console.log(err)
+    }
 }
 
 // get user by uuid

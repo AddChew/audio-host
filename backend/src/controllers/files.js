@@ -1,4 +1,4 @@
-const File = require('../models/file')
+const File = require('../models/file') // TODO: async, await everything instead of then catch
 
 // get all files owned by current user
 exports.getFiles = (req, res, next) => {
