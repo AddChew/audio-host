@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize(
+const sequelize = new Sequelize( // TODO: use dotenv
     process.env.PG_DB,
     process.env.PG_USER,
     process.env.PG_PASSWORD,
