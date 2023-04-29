@@ -48,12 +48,10 @@ app.use((err, req, res, next) => {
 })
 
 // sync database
-try {
-    await sequelize.sync()
-    sessionStore.sync()
-    console.log('Database connected')
-    app.listen(3000)
-}
-catch (err) {
-    console.log(err)
-}
+sessionStore.sync()
+sequelize.sync()
+         .then(results => {
+            console.log('Database connected')
+            app.listen(3000)
+         })
+         .catch(err => console.log(err))
