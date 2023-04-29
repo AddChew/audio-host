@@ -49,24 +49,22 @@ sessionStore.sync()
 sequelize.sync()
          .then(results => {
             console.log('Database connected')
-         })
-         .then(
-            User.findOrCreate({
+            return User.findOne({
                 where: {
-                    username: process.env.ADMIN_USER,
-                    password: bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10),
-                    isAdmin: true
+                    username: process.env.ADMIN_USER
                 }
-            })
-            .then(results => {
-                const [ user, created ] = results
-                if (created) {
-                    console.log(`Created admin user ${user.username}`)
-                    return
-                }
-                console.log(`Found admin user ${user.username}`)                
-            })
-            .catch(err => console.log(err))
-         )
+            }).then(user => user)
+         })
+         .then(user => {
+            if (user) {
+                console.log(`Found admin user ${user.username}`)
+                return
+            }
+            return User.create({
+                username: process.env.ADMIN_USER,
+                password: bcrypt.hashSync(process.env.ADMIn_PASSWORD, 10),
+                isAdmin: true
+            }).then(user => console.log(`Created admin user ${user.username}`))
+         })
          .then(app.listen(3000))
          .catch(err => console.log(err))
