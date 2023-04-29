@@ -40,6 +40,8 @@ const User = db.define('User',
 User.hasMany(File, {
     foreignKey: 'ownerUuid'
 })
-File.belongsTo(User)
+File.belongsTo(User, {
+    foreignKey: 'ownerUuid'
+})
 
 module.exports = User
