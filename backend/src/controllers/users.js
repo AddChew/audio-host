@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const User = require('../models/user') // TODO: async, await everything instead of then catch
+const User = require('../models/user')
 
 // get all users
 exports.getUsers = async (req, res, next) => {
@@ -17,66 +17,73 @@ exports.getUsers = async (req, res, next) => {
 }
 
 // get user by uuid
-exports.getUser = (req, res, next) => {
-    User.findByPk(req.params.userUuid, {
-        attributes: {
-            exclude: ['password']
-        }})
-        .then(user => {
-            if (user) {
-                return res.status(200).json({ user: user })
+exports.getUser = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.params.userUuid, {
+            attributes: {
+                exclude: ['password']
             }
-            res.status(404).json({ message: 'User not found!'})
         })
-        .catch(err => console.log(err))
+        if (user) {
+            return res.status(200).json({ user: user })
+        }
+        res.status(404).json({ message: 'User not found!'})
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 // create user
-exports.createUser = (req, res, next) => {
-    User.create({
-        username: req.body.username,
-        password: req.body.password,
-        isAdmin: req.body.isAdmin
-    })
-    .then(user => {
+exports.createUser = async (req, res, next) => {
+    try {
+        const { username, password, isAdmin } = req.body
+        const user = await User.create({
+            username: username,
+            password: password,
+            isAdmin: isAdmin            
+        })
         console.log(`Created user ${user.username}`)
         res.status(201).json({
             message: `User ${user.username} created successfully!`,
             user: user
-        })
-    })
-    .catch(err => console.log(err))
+        })        
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 // update user
-exports.updateUser = (req, res, next) => {
-    User.findByPk(req.params.userUuid)
-        .then(user => {
-            if (user) { // TODO: allow users to just specify the fields they want to change and leave the remaining fields empty
-                user.username = req.body.username
-                user.password = bcrypt.hash(req.body.password, 10)
-                user.isAdmin = req.body.isAdmin  // TODO: const { username, password, ... } = req.body
-                return user.save()
-            }
-            res.status(404).json({ message: 'User not found!'})
-        })
-        .then(result => {
-            res.status(204).json({ message: 'User updated!', user: result })
-        })
-        .catch(err => console.log(err))   
+exports.updateUser = async (req, res, next) => {
+    try {
+        let user = await User.findByPk(req.params.userUuid)
+        const { username, password, isAdmin } = req.body
+        if (user) {
+            user.username = username ? username : user.username
+            user.password = password ? bcrypt.hashSync(password, 10) : user.password
+            user.isAdmin = isAdmin ? isAdmin : user.isAdmin
+            user = await user.save()
+            return res.status(204).json({ message: 'User updated!', user: user })
+        }
+        res.status(404).json({ message: 'User not found!'})
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 // delete user
-exports.deleteUser = (req, res, next) => {
-    User.findByPk(req.params.userUuid)
-        .then(user => {
-            if (user) {
-                return user.destroy()
-            }
-            res.status(404).json({ message: 'User not found!'})
-        })
-        .then(result => {
-            res.status(204).json({ message: 'User deleted!' })
-        })
-        .catch(err => console.log(err))   
+exports.deleteUser = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.params.userUuid)
+        if (user) {
+            await user.destroy()
+            return res.status(204).json({ message: 'User deleted!' })
+        }
+        res.status(404).json({ message: 'User not found!'})
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
