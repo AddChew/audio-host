@@ -3,7 +3,7 @@ const File = require('../models/file')
 // get all files owned by current user
 exports.getFiles = async (req, res, next) => {
     try {
-        const files = await File.findAll({
+        const { count, rows } = await File.findAndCountAll({
             attributes: {
                 exclude: ['content']
             },
@@ -12,9 +12,14 @@ exports.getFiles = async (req, res, next) => {
             },
             order: [
                 ['createdAt', 'DESC']
-            ]
+            ],
+            limit: req.query.limit,
+            offset: req.query.offset
         })
-        return res.status(200).json({ files: files })
+        return res.status(200).json({
+            count: count,
+            files: rows
+        })
     }
     catch (err) {
         console.log(err)
