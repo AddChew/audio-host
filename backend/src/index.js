@@ -5,7 +5,7 @@ const bodyparser = require('body-parser')
 const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
-const { router: authRouter, passport } = require('./routes/auth')
+const passport = require('./controllers/passport')
 
 const app = express()
 app.use(bodyparser.json())
@@ -29,7 +29,7 @@ app.get('/', (req, res, next) => {
 })
 
 // auth routes
-app.use('/auth/', authRouter)
+app.use('/auth/', require('./routes/auth'))
 
 // user routes
 app.use('/users/', require('./routes/users'))

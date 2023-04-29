@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const passport = require('./passport')
 
 exports.registerUser = async (req, res, next) => {
     try {
@@ -9,7 +10,7 @@ exports.registerUser = async (req, res, next) => {
             password: bcrypt.hashSync(password, 10),
             isAdmin: false
         })
-        req.login(user, (err) => {
+        req.login(user, err => {
             if (err) {
                 return next(err)
             }
@@ -25,25 +26,34 @@ exports.registerUser = async (req, res, next) => {
     }
 }
 
-exports.loginUser = async (username, password, done) => {
-    try {
-        const user = await User.findOne({
-            where: {
-                username: username
-            }
-        })
+exports.loginUser = async (req, res, next) => {
+    console.log("logging in")
+    passport.authenticate('login', (err, user, info, status) => {
+        if (err) {
+            console.log("err")
+            return next(err)
+        }
         if (!user) {
-            return done(null, false, { message: 'Username does not exist'})
+            console.log("no user")
+            console.log(info)
+            return {
+                message: info
+            }
         }
-        if (bcrypt.compareSync(password, user.password)) {
-            return done(null, user)
-        }
-        return done(null, false, { message: 'Incorrect password'})
-    }
-    catch (err) {
-        console.log(err)
-        return done(err)
-    } 
+        console.log("try to loging")
+        req.login(user, err => {
+            if (err) {
+                console.log(err)
+                console.log('login err')
+                return next(err)
+            }
+            console.log('login liao')
+            return res.status(200).json({
+                message: 'Logged in successfully',
+                user: user
+            })
+        })
+    })(req, res, next)
 }
 
 exports.logoutUser = async (req, res, next) => {
@@ -54,14 +64,6 @@ exports.logoutUser = async (req, res, next) => {
         return res.status(204).json({
             message: 'Logged out successfully'
         }) 
-    })
-}
-
-exports.getUser = async (uuid) => {
-    return await User.findByPk(uuid, {
-        attributes: {
-            exclude: ['password']
-        }
     })
 }
 
