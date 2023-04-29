@@ -1,17 +1,28 @@
+require("dotenv").config()
+
 const express = require('express')
 const bodyparser = require('body-parser')
-const sequelize = require('./utils/database')
-const User = require('./models/user')
-const File = require('./models/file')
+const sequelize = require('./utils/connection')
+const sessionStore = require('./utils/session')
+
+// TODO: see if we need these imports
+// const User = require('./models/user')
+// const File = require('./models/file')
 
 const app = express()
 app.use(bodyparser.json())
-app.use(bodyparser.urlencoded({ extended: true })) // TODO: see if need to set to false
+app.use(bodyparser.urlencoded({ extended: false }))
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
     next()
 })
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    proxy: true
+}))
 
 // test route
 app.get('/', (req, res, next) => {
@@ -31,9 +42,12 @@ app.use((err, req, res, next) => {
 })
 
 // sync database
-sequelize.sync()
-         .then(results => {
-            console.log('Database connected')
-            app.listen(3000)
-         })
-         .catch(err => console.log(err))
+try {
+    await sequelize.sync()
+    sessionStore.sync()
+    console.log('Database connected')
+    app.listen(3000)
+}
+catch (err) {
+    console.log(err)
+}

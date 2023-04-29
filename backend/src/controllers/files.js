@@ -48,7 +48,7 @@ exports.createFile = async (req, res, next) => {
             description: description,
             category: category,
             content: content,
-            ownerUuid: req.user.userUuid
+            ownerUuid: req.user.uuid
         })
         console.log(`Created file ${file.filename}`)
         res.status(201).json({
