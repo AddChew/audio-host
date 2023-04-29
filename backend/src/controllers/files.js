@@ -15,6 +15,7 @@ exports.getFiles = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -34,6 +35,7 @@ exports.getFile = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -56,5 +58,6 @@ exports.createFile = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }

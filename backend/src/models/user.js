@@ -12,7 +12,10 @@ const User = db.define('User',
         },
         username: {
             type: DataTypes.STRING,
-            unique: true,
+            unique: {
+                arg: true,
+                msg: 'This username is already taken'
+            },
             allowNull: false
         },
         password: DataTypes.STRING,

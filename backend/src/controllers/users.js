@@ -13,6 +13,7 @@ exports.getUsers = async (req, res, next) => {
     } 
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -31,6 +32,7 @@ exports.getUser = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -51,6 +53,7 @@ exports.createUser = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -70,6 +73,7 @@ exports.updateUser = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
 
@@ -85,5 +89,6 @@ exports.deleteUser = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
+        res.status(404).json(err)
     }
 }
