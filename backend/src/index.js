@@ -21,6 +21,9 @@ app.get('/', (req, res, next) => {
 // user routes
 app.use('/users/', require('./routes/users'))
 
+// file routes
+app.use('/files/', require('./routes/files'))
+
 // error handling
 app.use((err, req, res, next) => {
     console.log(err)
