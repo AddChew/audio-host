@@ -18,3 +18,9 @@ src/utils/database.js
 
 src/models/user.js
 - define user database model
+
+src/models/file.js
+- define file database model
+
+src/controllers/users.js
+- define controller for user endpoints
