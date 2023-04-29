@@ -1,4 +1,5 @@
-const User = require('../models/user')
+const bcrypt = require('bcrypt')
+const User = require('../models/user') // TODO: async, await everything instead of then catch
 
 // get all users
 exports.getUsers = (req, res, next) => {
@@ -50,7 +51,7 @@ exports.updateUser = (req, res, next) => {
         .then(user => {
             if (user) { // TODO: allow users to just specify the fields they want to change and leave the remaining fields empty
                 user.username = req.body.username
-                user.password = req.body.password // TODO: encrypt password before saving to database
+                user.password = bcrypt.hash(req.body.password, 10)
                 user.isAdmin = req.body.isAdmin  // TODO: const { username, password, ... } = req.body
                 return user.save()
             }
