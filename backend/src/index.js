@@ -4,6 +4,7 @@ const express = require('express')
 const bodyparser = require('body-parser')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
+const { authRouter: router, passport } = require('./routes/auth')
 
 // TODO: see if we need these imports
 // const User = require('./models/user')
@@ -24,11 +25,15 @@ app.use(session({
     saveUninitialized: false,
     proxy: true
 }))
+app.use(passport.authenticate('session'))
 
 // test route
 app.get('/', (req, res, next) => {
-    res.send('Hello World!')
+    res.send('Ok!')
 })
+
+// auth routes
+app.use('/auth/', authRouter)
 
 // user routes
 app.use('/users/', require('./routes/users'))
