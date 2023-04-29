@@ -1,22 +1,19 @@
-const Sequelize = require('sequelize')
+const { DataTypes } = require('sequelize')
 const db = require('../utils/database')
 
 const User = db.define('User', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
+    uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: false
     },
-    username: Sequelize.STRING,
-    password: Sequelize.STRING,
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
     isAdmin: {
-        type: Sequelize.BOOLEAN,
-        field: 'is_admin'
-    },
-    joinedDate: {
-        type: Sequelize.DATE,
-        field: 'joined_date'
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
     }
 })
 
