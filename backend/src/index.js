@@ -2,9 +2,10 @@ require("dotenv").config()
 
 const express = require('express')
 const bodyparser = require('body-parser')
+const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
-const { authRouter: router, passport } = require('./routes/auth')
+const { router: authRouter, passport } = require('./routes/auth')
 
 // TODO: see if we need these imports
 // const User = require('./models/user')
