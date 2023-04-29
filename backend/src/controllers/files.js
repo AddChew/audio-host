@@ -34,7 +34,7 @@ exports.getFile = (req, res, next) => {
 
 // create file
 exports.createFile = (req, res, next) => {
-    File.create({
+    File.create({ // TODO: const { filename, description , ... } = req.body
         filename: req.body.filename,
         description: req.body.description,
         category: req.body.category,

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 
+// require("dotenv").config()
 const sequelize = new Sequelize( // TODO: use dotenv
     process.env.PG_DB,
     process.env.PG_USER,
