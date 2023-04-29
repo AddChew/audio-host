@@ -42,7 +42,7 @@ exports.createUser = async (req, res, next) => {
         const { username, password, isAdmin } = req.body
         const user = await User.create({
             username: username,
-            password: password,
+            password: bcrypt.hashSync(password, 10),
             isAdmin: isAdmin            
         })
         console.log(`Created user ${user.username}`)
