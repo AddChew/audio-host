@@ -9,7 +9,10 @@ exports.getFiles = async (req, res, next) => {
             },
             where: {
                 ownerUuid: req.user.uuid
-            }
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ]
         })
         return res.status(200).json({ files: files })
     }

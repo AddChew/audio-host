@@ -7,7 +7,10 @@ exports.getUsers = async (req, res, next) => {
         const users = await User.findAll({
             attributes: {
                 exclude: ['password']
-            }
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ]
         })
         return res.status(200).json({ users: users })
     } 
