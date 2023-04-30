@@ -18,7 +18,13 @@ export default { // TODO: figure out how to write data provider
     },
 
     getOne: (resource, params) => 
-        httpClient(`/${resource}/${params.id}`).then(({ json }) => ({
-            data: json
-        }))
+        httpClient(`/${resource}/${params.id}`)
+            .then(response => ({ data: Object.values(response.json)[0] })),
+
+    update: (resource, params) =>
+        httpClient(`/${resource}/${params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(params.data),
+        })
+        .then(response => ({ data: Object.values(response.json)[1] }))
 }
