@@ -20,26 +20,23 @@ export const authProvider = {
           .catch(err => {throw new Error(err)})
     },
 
-    logout: async () => {
+    logout: () => {
       const request = new Request(`${root}/${auth}/${logout}`, {
-        method: 'DELETE',
-        headers: new Headers({ 'Content-Type': 'application/json'})
+        method: 'DELETE'
       })
-      try {
-        const response = await fetch(request)
-        if (response.status === 204) {
+      return fetch(request)
+        .then(response => {
+          if (response.status !== 204) throw new Error(response.statusText)
           localStorage.removeItem("userUuid")
-        }
-      }
-      catch (err) {
-        console.log(err)
-      }
+        })
+        .catch(err => {throw new Error(err)})
     },
 
-    checkError: ({ status }) => {
+    checkError: (error) => {
+      const status = error.status
       if (status === 401 || status === 403) {
         localStorage.removeItem("userUuid");
-        return Promise.reject()
+        return Promise.reject({ message: error.message })
       }
       return Promise.resolve()
     },
@@ -47,8 +44,8 @@ export const authProvider = {
     checkAuth: () => {
       return localStorage.getItem("userUuid")
         ? Promise.resolve()
-        : Promise.reject()
+        : Promise.reject({ message: 'Login required'})
     },
 
-    getPermissions: () => Promise.resolve(),
+    getPermissions: () => Promise.resolve(), //TODO
   }
