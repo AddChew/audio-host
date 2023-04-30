@@ -63,7 +63,7 @@ sequelize.sync()
             }
             return User.create({
                 username: process.env.ADMIN_USER,
-                password: bcrypt.hashSync(process.env.ADMIn_PASSWORD, 10),
+                password: bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10),
                 isAdmin: true
             }).then(user => console.log(`Created admin user ${user.username}`))
          })
