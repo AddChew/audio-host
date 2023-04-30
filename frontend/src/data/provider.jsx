@@ -9,9 +9,9 @@ export default { // TODO: figure out how to write data provider
         const url = `/${resource}?limit=${perPage}&offset=${offset}`
         return httpClient(url)
             .then(response => response.json)
-            .then(({ count, users }) => {
+            .then(({ count, rows }) => {
             return {
-                data: users,
+                data: rows,
                 total: count
             }
             })
