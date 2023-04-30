@@ -1,7 +1,7 @@
 import { Admin, Resource, ListGuesser } from 'react-admin'
 import dataProvider from './data/provider'
 import { UserList } from './components/users'
-import { authProvider } from './data/authProvider'
+import authProvider from './data/authProvider'
 
 const App = () => (
     <Admin authProvider={ authProvider } dataProvider={ dataProvider }>
