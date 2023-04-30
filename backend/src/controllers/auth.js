@@ -75,8 +75,9 @@ exports.checkNotAuthenticated = (req, res, next) => {
     return next()
 }
 
-exports.checkIsAdmin = (req, res, next) => {
-    if (req.user.isAdmin) return next() // TODO: potential bug
+exports.checkIsAdmin = async (req, res, next) => {
+    const user = await req.user
+    if (user.isAdmin) return next()
     return res.status(403).json({
         message: 'Insufficient permissions'
     })
