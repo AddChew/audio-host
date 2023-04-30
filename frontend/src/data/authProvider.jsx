@@ -15,7 +15,7 @@ export const authProvider = {
           .then(response => response.json())
           .then(json => {
             if (!json.user) throw new Error(json.message)
-            localStorage.setItem('userUuid', json.user.uuid)
+            localStorage.setItem('user', JSON.stringify(json.user))
           })
           .catch(err => {throw new Error(err)})
     },
@@ -27,7 +27,7 @@ export const authProvider = {
       return fetch(request)
         .then(response => {
           if (response.status !== 204) throw new Error(response.statusText)
-          localStorage.removeItem("userUuid")
+          localStorage.removeItem("user")
         })
         .catch(err => {throw new Error(err)})
     },
@@ -35,17 +35,34 @@ export const authProvider = {
     checkError: (error) => {
       const status = error.status
       if (status === 401 || status === 403) {
-        localStorage.removeItem("userUuid");
+        localStorage.removeItem("user");
         return Promise.reject({ message: error.message })
       }
       return Promise.resolve()
     },
 
     checkAuth: () => {
-      return localStorage.getItem("userUuid")
+      return localStorage.getItem("user")
         ? Promise.resolve()
         : Promise.reject({ message: 'Login required'})
     },
 
-    getPermissions: () => Promise.resolve(), //TODO
+    getPermissions: () => {
+      try {
+        const { isAdmin } = JSON.parse(localStorage.getItem("user"))
+        return Promise.resolve({ isAdmin: isAdmin })
+      }
+      catch (err) {
+        return Promise.reject(err)
+      }
+    },
+
+    getIdentity: () => {
+      try {
+        const { uuid, username } = JSON.parse(localStorage.getItem("user"))
+        return Promise.resolve({ id: uuid, fullName: username })
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
   }
