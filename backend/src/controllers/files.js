@@ -4,7 +4,7 @@ const File = require('../models/file')
 exports.getFiles = async (req, res, next) => {
     try {
         const user = await req.user
-        const { count, rows } = await File.findAndCountAll({
+        const results = await File.findAndCountAll({
             attributes: {
                 exclude: ['content']
             },
@@ -17,10 +17,7 @@ exports.getFiles = async (req, res, next) => {
             limit: req.query.limit,
             offset: req.query.offset
         })
-        return res.status(200).json({
-            count: count,
-            files: rows
-        })
+        return res.status(200).json(results)
     }
     catch (err) {
         console.log(err)

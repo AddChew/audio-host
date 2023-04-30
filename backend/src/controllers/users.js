@@ -4,7 +4,7 @@ const User = require('../models/user')
 // get all users
 exports.getUsers = async (req, res, next) => {
     try {
-        const { count, rows } = await User.findAndCountAll({
+        const results = await User.findAndCountAll({
             attributes: {
                 exclude: ['password']
             },
@@ -14,10 +14,7 @@ exports.getUsers = async (req, res, next) => {
             limit: req.query.limit,
             offset: req.query.offset
         })
-        return res.status(200).json({
-            count: count,
-            users: rows
-        })
+        return res.status(200).json(results)
     } 
     catch (err) {
         console.log(err)
