@@ -5,8 +5,9 @@ const httpClient = fetchUtils.fetchJson
 
 export default { // TODO: figure out how to write data provider
     getList: (resource, params) => {
-        const { limit, offset } = params.pagination // TODO: add pagination
-        const url = `${api.root}/${resource}`
+        const { page, perPage } = params.pagination
+        const offset = (page - 1) * perPage
+        const url = `${api.root}/${resource}?limit=${perPage}&offset=${offset}`
         return httpClient(url)
             .then(response => response.json)
             .then(({ count, users }) => {
