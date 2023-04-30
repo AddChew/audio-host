@@ -4,7 +4,7 @@ const File = require('../models/file')
 
 const User = db.define('User', 
     {
-        uuid: {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
@@ -38,10 +38,10 @@ const User = db.define('User',
 )
 
 User.hasMany(File, {
-    foreignKey: 'ownerUuid'
+    foreignKey: 'ownerid'
 })
 File.belongsTo(User, {
-    foreignKey: 'ownerUuid'
+    foreignKey: 'ownerid'
 })
 
 module.exports = User

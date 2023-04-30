@@ -25,10 +25,10 @@ exports.getUsers = async (req, res, next) => {
     }
 }
 
-// get user by uuid
+// get user by id
 exports.getUser = async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.params.userUuid, {
+        const user = await User.findByPk(req.params.userid, {
             attributes: {
                 exclude: ['password']
             }
@@ -68,7 +68,7 @@ exports.createUser = async (req, res, next) => {
 // update user
 exports.updateUser = async (req, res, next) => {
     try {
-        let user = await User.findByPk(req.params.userUuid)
+        let user = await User.findByPk(req.params.userid)
         const { username, password, isAdmin } = req.body
         if (user) {
             user.username = username ? username : user.username
@@ -88,7 +88,7 @@ exports.updateUser = async (req, res, next) => {
 // delete user
 exports.deleteUser = async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.params.userUuid)
+        const user = await User.findByPk(req.params.userid)
         if (user) {
             await user.destroy()
             return res.status(204).json({ message: 'User deleted' })

@@ -3,7 +3,7 @@ const db = require('../utils/connection')
 
 const File = db.define('File', 
     {
-        uuid: {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,

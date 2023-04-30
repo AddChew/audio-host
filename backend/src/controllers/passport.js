@@ -24,8 +24,8 @@ const loginStrategy = async (username, password, done) => {
     } 
 }
 
-const getUser = async (uuid) => {
-    return await User.findByPk(uuid, {
+const getUser = async (id) => {
+    return await User.findByPk(id, {
         attributes: {
             exclude: ['password']
         }
@@ -33,7 +33,7 @@ const getUser = async (uuid) => {
 }
 
 passport.use('login', new LocalStrategy(loginStrategy))
-passport.serializeUser((user, done) => done(null, user.uuid))
-passport.deserializeUser((uuid, done) => done(null, getUser(uuid)))
+passport.serializeUser((user, done) => done(null, user.id))
+passport.deserializeUser((id, done) => done(null, getUser(id)))
 
 module.exports = passport

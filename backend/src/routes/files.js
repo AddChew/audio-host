@@ -4,6 +4,6 @@ const { checkAuthenticated } = require('../controllers/auth')
 
 router.get('/', checkAuthenticated, controller.getFiles) // GET /files
 router.post('/', checkAuthenticated, controller.createFile) // POST /files
-router.get('/:fileUuid', checkAuthenticated, controller.getFile) // GET /files/:fileUuid
+router.get('/:fileid', checkAuthenticated, controller.getFile) // GET /files/:fileid
 
 module.exports = router

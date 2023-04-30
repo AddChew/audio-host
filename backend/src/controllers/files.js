@@ -9,7 +9,7 @@ exports.getFiles = async (req, res, next) => {
                 exclude: ['content']
             },
             where: {
-                ownerUuid: user.uuid
+                ownerid: user.id
             },
             order: [
                 ['createdAt', 'DESC']
@@ -28,14 +28,14 @@ exports.getFiles = async (req, res, next) => {
     }
 }
 
-// get file by uuid, owned by current user
+// get file by id, owned by current user
 exports.getFile = async (req, res, next) => {
     try {
         const user = await req.user
         const file = await File.findOne({
             where: {
-                uuid: req.params.fileUuid,
-                ownerUuid: user.uuid
+                id: req.params.fileid,
+                ownerid: user.id
             }
         })
         if (file) {
@@ -59,7 +59,7 @@ exports.createFile = async (req, res, next) => {
             description: description,
             category: category,
             content: content,
-            ownerUuid: user.uuid
+            ownerid: user.id
         })
         console.log(`Created file ${file.filename}`)
         return res.status(201).json({
