@@ -3,12 +3,13 @@ const File = require('../models/file')
 // get all files owned by current user
 exports.getFiles = async (req, res, next) => {
     try {
+        const user = await req.user
         const { count, rows } = await File.findAndCountAll({
             attributes: {
                 exclude: ['content']
             },
             where: {
-                ownerUuid: req.user.uuid
+                ownerUuid: user.uuid
             },
             order: [
                 ['createdAt', 'DESC']
@@ -30,10 +31,11 @@ exports.getFiles = async (req, res, next) => {
 // get file by uuid, owned by current user
 exports.getFile = async (req, res, next) => {
     try {
+        const user = await req.user
         const file = await File.findOne({
             where: {
                 uuid: req.params.fileUuid,
-                ownerUuid: req.user.uuid
+                ownerUuid: user.uuid
             }
         })
         if (file) {
@@ -50,13 +52,14 @@ exports.getFile = async (req, res, next) => {
 // create file
 exports.createFile = async (req, res, next) => {
     try {
+        const user = await req.user
         const { filename, description, category, content } = req.body
         const file = await File.create({
             filename: filename,
             description: description,
             category: category,
             content: content,
-            ownerUuid: req.user.uuid
+            ownerUuid: user.uuid
         })
         console.log(`Created file ${file.filename}`)
         return res.status(201).json({
