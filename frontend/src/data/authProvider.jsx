@@ -22,8 +22,7 @@ export default {
         method: 'DELETE'
       })
       return fetch(request)
-        .then(response => {
-          if (response.status !== 204) throw new Error(response.statusText)
+        .then(() => {
           localStorage.removeItem("user")
         })
         .catch(err => {throw new Error(err)})
@@ -41,7 +40,7 @@ export default {
     checkAuth: () => {
       return localStorage.getItem("user")
         ? Promise.resolve()
-        : Promise.reject({ message: 'Login required'})
+        : Promise.reject()
     },
 
     getPermissions: () => {
