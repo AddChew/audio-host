@@ -3,7 +3,7 @@ import dataProvider from './data/provider'
 import { authProvider } from './data/authProvider'
 
 const App = () => (
-    <Admin authProvider={authProvider} dataProvider={ dataProvider }>
+    <Admin authProvider={ authProvider } dataProvider={ dataProvider }>
         <Resource name="users" list={ ListGuesser } />
     </Admin>
 )

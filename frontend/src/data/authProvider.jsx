@@ -59,8 +59,8 @@ export const authProvider = {
 
     getIdentity: () => {
       try {
-        const { uuid, username } = JSON.parse(localStorage.getItem("user"))
-        return Promise.resolve({ id: uuid, fullName: username })
+        const { id, username } = JSON.parse(localStorage.getItem("user"))
+        return Promise.resolve({ id: id, fullName: username })
       } catch (err) {
         return Promise.reject(err)
       }
