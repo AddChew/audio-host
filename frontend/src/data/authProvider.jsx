@@ -1,9 +1,6 @@
-import api from './api'
-const { root, auth, login, logout } = api
-
-export const authProvider = {
+export default {
     login: ({ username, password }) => {
-        const request = new Request(`${root}/${auth}/${login}`, {
+        const request = new Request('/auth/login', {
             method: 'POST',
             body: JSON.stringify({
                 username: username,
@@ -21,7 +18,7 @@ export const authProvider = {
     },
 
     logout: () => {
-      const request = new Request(`${root}/${auth}/${logout}`, {
+      const request = new Request('/auth/logout', {
         method: 'DELETE'
       })
       return fetch(request)
