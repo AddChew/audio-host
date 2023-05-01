@@ -10,7 +10,8 @@ import {
     TextInput,
     PasswordInput,
     Create,
-    useRecordContext
+    useRecordContext,
+    BooleanField
 } from 'react-admin'
 
 const UserTitle = () => {
@@ -22,6 +23,7 @@ export const UserList = () => (
     <List>
         <Datagrid bulkActionButtons={false}>
             <TextField source="username" sortable={ false } />
+            <BooleanField source="isAdmin" sortable={ false } />
             <DateField source="createdAt" sortable={ false } />
             <DateField source="updatedAt" sortable={ false } />
             <EditButton />
@@ -48,5 +50,3 @@ export const UserCreate = () => (
         </SimpleForm>
     </Create>
 )
-
-// TODO: create custom field for audio files, load the blob and play file

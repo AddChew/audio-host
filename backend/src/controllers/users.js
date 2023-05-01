@@ -70,7 +70,7 @@ exports.updateUser = async (req, res, next) => {
         if (user) {
             user.username = username ? username : user.username
             user.password = password ? bcrypt.hashSync(password, 10) : user.password
-            user.isAdmin = isAdmin ? isAdmin : user.isAdmin
+            user.isAdmin = isAdmin === undefined ? user.isAdmin : isAdmin
             user = await user.save()
             return res.status(200).json({ message: 'User updated', user: user })
         }
