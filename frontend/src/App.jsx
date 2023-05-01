@@ -1,7 +1,7 @@
 import { Admin, Resource } from 'react-admin'
 import dataProvider from './data/provider'
 import { Dashboard } from './components/dashboard'
-import { UserList, UserEdit, UserCreate } from './components/users'
+import { UserList, UserEdit, UserCreate, UserShow } from './components/users'
 import { FileList, FileCreate, FileShow } from './components/files'
 import authProvider from './data/authProvider'
 import UserIcon from '@mui/icons-material/Group'
@@ -12,7 +12,7 @@ const App = () => (
         <Resource name="files" list={ FileList } create={ FileCreate } icon={ AudioFileIcon } show={ FileShow } />
         {permissions => (
             <>
-            {permissions.isAdmin ? <Resource name="users" list={ UserList } edit={ UserEdit } create={ UserCreate } icon={ UserIcon } /> : null}
+            {permissions.isAdmin ? <Resource name="users" list={ UserList } edit={ UserEdit } create={ UserCreate } icon={ UserIcon } show={ UserShow }/> : null}
             </>
         )}
     </Admin>
