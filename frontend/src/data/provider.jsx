@@ -1,6 +1,13 @@
 import { fetchUtils } from 'react-admin'
 
 const httpClient = fetchUtils.fetchJson
+const convertFileToBase64 = file =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = reject
+        reader.readAsDataURL(file.rawFile)
+    })
 
 export default { // TODO: figure out how to write data provider
     getList: (resource, params) => {
@@ -21,12 +28,29 @@ export default { // TODO: figure out how to write data provider
         httpClient(`/${resource}/${params.id}`)
             .then(response => ({ data: Object.values(response.json)[0] })),
 
-    create: (resource, params) =>
-        httpClient(`/${resource}`, {
-            method: 'POST',
-            body: JSON.stringify(params.data)
-        })
-        .then(response => ({ data: Object.values(response.json)[1] })),
+    create: (resource, params) => {
+        if (resource !== 'files') {
+            return httpClient(`/${resource}`, {
+                method: 'POST',
+                body: JSON.stringify(params.data)
+            })
+            .then(response => ({ data: Object.values(response.json)[1] }))
+        }
+        const file = params.data.content
+        return Promise.resolve(convertFileToBase64(file))
+            .then(base64File => {
+                console.log(base64File)
+                return { ...params.data, content: base64File }
+            })
+            .then(() => {
+                return httpClient(`/${resource}`, {
+                    method: 'POST',
+                    body: JSON.stringify(params.data)
+                })
+                .then(response => ({ data: Object.values(response.json)[1] }))
+            })
+            .then(results => results)
+        },
 
     update: (resource, params) =>
         httpClient(`/${resource}/${params.id}`, {

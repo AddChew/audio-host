@@ -20,7 +20,7 @@ const UserTitle = () => {
 
 export const UserList = () => (
     <List>
-        <Datagrid>
+        <Datagrid bulkActionButtons={false}>
             <TextField source="username" sortable={ false } />
             <DateField source="createdAt" sortable={ false } />
             <DateField source="updatedAt" sortable={ false } />
