@@ -29,6 +29,7 @@ export const UserList = () => (
             <BooleanField source="isAdmin" sortable={ false } />
             <DateField source="createdAt" sortable={ false } showTime />
             <DateField source="updatedAt" sortable={ false } showTime />
+            <ShowButton />
             <EditButton />
         </Datagrid>
     </List>
