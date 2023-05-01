@@ -11,7 +11,8 @@ import {
     PasswordInput,
     Create,
     useRecordContext,
-    BooleanField
+    BooleanField,
+    required
 } from 'react-admin'
 
 const UserTitle = () => {
@@ -24,8 +25,8 @@ export const UserList = () => (
         <Datagrid bulkActionButtons={false}>
             <TextField source="username" sortable={ false } />
             <BooleanField source="isAdmin" sortable={ false } />
-            <DateField source="createdAt" sortable={ false } />
-            <DateField source="updatedAt" sortable={ false } />
+            <DateField source="createdAt" sortable={ false } showTime />
+            <DateField source="updatedAt" sortable={ false } showTime />
             <EditButton />
         </Datagrid>
     </List>
@@ -34,7 +35,7 @@ export const UserList = () => (
 export const UserEdit = () => (
     <Edit title={ <UserTitle />}> 
         <SimpleForm>
-            <TextInput source="username" />
+            <TextInput source="username" disabled />
             <PasswordInput source="password" />
             <BooleanInput source="isAdmin" />
         </SimpleForm>
@@ -44,9 +45,9 @@ export const UserEdit = () => (
 export const UserCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="username" />
-            <PasswordInput source="password" />
-            <BooleanInput source="isAdmin" />
+            <TextInput source="username" validate={ required() } />
+            <PasswordInput source="password" validate={ required() } />
+            <BooleanInput source="isAdmin" validate={ required() } />
         </SimpleForm>
     </Create>
 )

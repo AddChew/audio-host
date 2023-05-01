@@ -24,7 +24,32 @@ docker compose up -d
 TODO:
 
 ## API definition
-TODO: should have 11 endpoints
+
+### Authentication
+
+| Method | Endpoint        | Function          |
+| -------|---------------- | ----------------- |
+| POST   | /auth/register  | Register new user |
+| POST   | /auth/login     | Login user        |
+| DELETE | /auth/logout    | Logout user       |
+
+### Users
+
+| Method | Endpoint        | Function               |
+| -------|---------------- | ---------------------- |
+| GET    | /users/         | Retrieve list of users |
+| POST   | /users/         | Create new user        |
+| GET    | /users/:userid  | Retrieve user by userid|
+| PUT    | /users/:userid  | Update user by userid  |
+| DELETE | /users/:userid  | Delete user by userid  |
+
+### Files
+
+| Method | Endpoint        | Function               |
+| -------|---------------- | ---------------------- |
+| GET    | /files/         | Retrieve list of files |
+| POST   | /files/         | Create new file        |
+| GET    | /files/:fileid  | Retrieve file by fileid|
 
 ## Ports
 
