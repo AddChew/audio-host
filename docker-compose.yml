@@ -20,7 +20,8 @@ services:
       - ADMIN_PASSWORD=admin
       - SESSION_SECRET=a621b5ebde0171d1f287748e02dd7307947a8fef3b282918d6274834465efb01
     depends_on:
-    - db
+      db:
+        condition: service_healthy
     restart: always
 
   db:
@@ -30,10 +31,16 @@ services:
       - 5432:5432
     volumes:
       - db_data:/var/lib/postgresql/data/
+    user: postgres
     environment:
       - POSTGRES_DB=audio_host_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
 
   frontend:
     container_name: frontend
@@ -46,8 +53,10 @@ services:
     ports:
       - 3001:3001
     depends_on:
-    - db
-    - backend
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
     restart: always
 
 volumes:
