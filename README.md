@@ -25,9 +25,31 @@ TODO:
 
 ## API definition
 
-| Service        | Method | Endpoint        | Function          |
-| -------------- | -------|---------------- | ----------------- |
-| Authentication | POST   | /auth/register  | Register new user |
+### Authentication
+
+| Method | Endpoint        | Function          |
+| -------|---------------- | ----------------- |
+| POST   | /auth/register  | Register new user |
+| POST   | /auth/login     | Login user        |
+| DELETE | /auth/logout    | Logout user       |
+
+### Users
+
+| Method | Endpoint        | Function               |
+| -------|---------------- | ---------------------- |
+| GET    | /users/         | Retrieve list of users |
+| POST   | /users/         | Create new user        |
+| GET    | /users/:userid  | Retrieve user by uuid  |
+| PUT    | /users/:userid  | Update user by uuid    |
+| DELETE | /users/:userid  | Delete user by uuid    |
+
+### Files
+
+| Method | Endpoint        | Function               |
+| -------|---------------- | ---------------------- |
+| GET    | /files/         | Retrieve list of files |
+| POST   | /files/         | Create new file        |
+| GET    | /files/:fileid  | Retrieve file by uuid  |
 
 ## Ports
 
