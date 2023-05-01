@@ -11,7 +11,8 @@ import {
     useRecordContext,
     Show,
     SimpleShowLayout,
-    ShowButton
+    ShowButton,
+    required
 } from 'react-admin'
 import * as React from "react"
 
@@ -43,15 +44,15 @@ const AudioField = (props) => {
 export const FileCreate = () => (
     <Create>
         <SimpleForm>
-            <FileInput source="content" accept="audio/*" maxSize={25000000} placeholder={ <FileInputMessage /> }>
+            <FileInput source="content" accept="audio/*" maxSize={25000000} placeholder={ <FileInputMessage /> } validate={ required() }>
                 <>
                 <FileField source="src" title="title" />
                 <AudioField source="src" title="title" />
                 </>
             </FileInput>
-            <TextInput source="filename" />
-            <TextInput source="description" />
-            <TextInput source="category" />
+            <TextInput source="filename" validate={ required() } />
+            <TextInput source="description" validate={ required() } />
+            <TextInput source="category" validate={ required() } />
         </SimpleForm>
     </Create>
 )

@@ -11,7 +11,8 @@ import {
     PasswordInput,
     Create,
     useRecordContext,
-    BooleanField
+    BooleanField,
+    required
 } from 'react-admin'
 
 const UserTitle = () => {
@@ -44,9 +45,9 @@ export const UserEdit = () => (
 export const UserCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="username" />
-            <PasswordInput source="password" />
-            <BooleanInput source="isAdmin" />
+            <TextInput source="username" validate={ required() } />
+            <PasswordInput source="password" validate={ required() } />
+            <BooleanInput source="isAdmin" validate={ required() } />
         </SimpleForm>
     </Create>
 )
