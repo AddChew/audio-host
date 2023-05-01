@@ -3,6 +3,13 @@ Audio File Hosting Web Application
 
 ## How to run the application
 
+The following set of instructions assume that you already have docker and docker compose installed on your local machine. Application was tested with the following versions of docker and docker compose
+
+|                | Version  | 
+| -------------- | -------- |
+| docker         | 20.10.17 |
+| docker compose | v2.6.0   |
+
 1. Navigate into project root directory (i.e. audio-host)
 ```
 cd audio-host
@@ -18,7 +25,14 @@ docker compose build
 docker compose up -d
 ```
 
-4. Navigate to http://localhost:3001/ to interact with the application
+4. Navigate to http://localhost:3001/
+
+5. Login with the following credentials to interact with the application
+
+|               |       |
+| ------------- | ----- |
+| Username      | admin |
+| Password      | admin |
 
 ## System architecture
 TODO:
