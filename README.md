@@ -24,7 +24,10 @@ docker compose up -d
 TODO:
 
 ## API definition
-TODO: should have 11 endpoints
+
+| Service        | Method | Endpoint        | Function          |
+| -------------- | -------|---------------- | ----------------- |
+| Authentication | POST   | /auth/register  | Register new user |
 
 ## Ports
 
