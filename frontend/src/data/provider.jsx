@@ -9,7 +9,7 @@ const convertFileToBase64 = file =>
         reader.readAsDataURL(file.rawFile)
     })
 
-export default { // TODO: figure out how to write data provider
+export default {
     getList: (resource, params) => {
         const { page, perPage } = params.pagination
         const offset = (page - 1) * perPage
@@ -39,13 +39,17 @@ export default { // TODO: figure out how to write data provider
         const file = params.data.content
         return Promise.resolve(convertFileToBase64(file))
             .then(base64File => {
-                console.log(base64File)
                 return { ...params.data, content: base64File }
             })
-            .then(() => {
+            .then(data => {
+                let formData = new FormData()
+                formData.append('filename', data.filename)
+                formData.append('description', data.description)
+                formData.append('category', data.category)
+                formData.append('content', data.content)
                 return httpClient(`/${resource}`, {
                     method: 'POST',
-                    body: JSON.stringify(params.data)
+                    body: formData
                 })
                 .then(response => ({ data: Object.values(response.json)[1] }))
             })
