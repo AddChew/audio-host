@@ -61,11 +61,10 @@ const FileTitle = () => {
     return <span>{ record ? `${record.filename}` : '' }</span>
 }
 
-// const ShowAudioField = (props) => {
-//     const record = useRecordContext(props)
-//     // console.log(URL.createObjectURL(record.content.data))
-//     return record ? <div><audio controls><source src={record.content} /></audio> </div>: null
-// }
+const ShowAudioField = (props) => {
+    const record = useRecordContext(props)
+    return record.content ? <div><audio controls><source src={record.content} /></audio> </div>: null
+}
 
 export const FileShow = () => (
     <Show title={ <FileTitle />}>
@@ -74,9 +73,7 @@ export const FileShow = () => (
             <TextField source="description" />
             <TextField source="category" />
             <DateField source="createdAt" />
-            {/* <ShowAudioField source="content" /> */}
+            <ShowAudioField source="content" />
         </SimpleShowLayout>
     </Show>
 )
-
-// TODO: fix file upload issue
