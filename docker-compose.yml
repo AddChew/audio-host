@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    volumes:
-      - ./backend:/app
     ports:
       - 3000:3000
     environment:
@@ -48,8 +46,6 @@ services:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
-    volumes:
-      - ./frontend:/app
     ports:
       - 3001:3001
     depends_on:
