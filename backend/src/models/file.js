@@ -12,7 +12,7 @@ const File = db.define('File',
         filename: DataTypes.STRING,
         description: DataTypes.STRING,
         category: DataTypes.STRING,
-        content: DataTypes.BLOB
+        content: DataTypes.TEXT('long')
     },
     {
         hooks: {
