@@ -35,5 +35,20 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
+  frontend:
+    container_name: frontend
+    image: audio_host_frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 3001:3001
+    depends_on:
+    - db
+    - backend
+    restart: always
+
 volumes:
   db_data: {}
