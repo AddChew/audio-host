@@ -35,7 +35,8 @@ docker compose up -d
 | Password      | admin |
 
 ## System architecture
-TODO:
+
+![](/assets/system_architecture.png)
 
 ## API definition
 
