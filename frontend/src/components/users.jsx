@@ -8,8 +8,15 @@ import {
     Edit, 
     SimpleForm, 
     TextInput,
-    PasswordInput
-} from 'react-admin';
+    PasswordInput,
+    Create,
+    useRecordContext
+} from 'react-admin'
+
+const UserTitle = () => {
+    const record = useRecordContext()
+    return <span>{ record ? `${record.username}` : '' }</span>
+}
 
 export const UserList = () => (
     <List>
@@ -23,13 +30,23 @@ export const UserList = () => (
 )
 
 export const UserEdit = () => (
-    <Edit>
+    <Edit title={ <UserTitle />}> 
         <SimpleForm>
             <TextInput source="username" />
-            <BooleanInput source="isAdmin" />
             <PasswordInput source="password" />
+            <BooleanInput source="isAdmin" />
         </SimpleForm>
     </Edit>
+)
+
+export const UserCreate = () => (
+    <Create>
+        <SimpleForm>
+            <TextInput source="username" />
+            <PasswordInput source="password" />
+            <BooleanInput source="isAdmin" />
+        </SimpleForm>
+    </Create>
 )
 
 // TODO: create custom field for audio files, load the blob and play file

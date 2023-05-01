@@ -21,10 +21,23 @@ export default { // TODO: figure out how to write data provider
         httpClient(`/${resource}/${params.id}`)
             .then(response => ({ data: Object.values(response.json)[0] })),
 
+    create: (resource, params) =>
+        httpClient(`/${resource}`, {
+            method: 'POST',
+            body: JSON.stringify(params.data)
+        })
+        .then(response => ({ data: Object.values(response.json)[1] })),
+
     update: (resource, params) =>
         httpClient(`/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         })
-        .then(response => ({ data: Object.values(response.json)[1] }))
+        .then(response => ({ data: Object.values(response.json)[1] })),
+
+    delete: (resource, params) =>
+        httpClient(`${resource}/${params.id}`, {
+            method: 'DELETE',
+        })
+        .then(response => ({ data: Object.values(response.json)[1] })),
 }
