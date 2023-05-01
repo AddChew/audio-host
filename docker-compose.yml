@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend
+    image: audio_host_backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - 3000:3000
+    environment:
+      - PG_DB=audio_host_db
+      - PG_USER=postgres
+      - PG_PASSWORD=password
+      - PG_HOST=db
+      - ADMIN_USER=admin
+      - ADMIN_PASSWORD=admin
+      - SESSION_SECRET=a621b5ebde0171d1f287748e02dd7307947a8fef3b282918d6274834465efb01
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  db:
+    container_name: db
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    user: postgres
+    environment:
+      - POSTGRES_DB=audio_host_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
+
+  frontend:
+    container_name: frontend
+    image: audio_host_frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 3001:3001
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    restart: always
+
+volumes:
+  db_data: {}
