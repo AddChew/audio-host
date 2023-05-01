@@ -1,37 +1,35 @@
-# audio-host
+# Audio Host
 Audio File Hosting Web Application
 
-## Instructions on how to start backend application
+## How to run the application
 
-1. Spin up database container
+1. Navigate into project root directory (i.e. audio-host)
 ```
-docker compose up -d db
-```
-
-2. Check status of containers
-```
-docker ps -a
+cd audio-host
 ```
 
-3. Build backend container
+2. Build services
 ```
 docker compose build
 ```
 
-4. Spin up backend container
+3. Create and start containers
 ```
 docker compose up -d
 ```
 
-## Instructions on how to start frontend application
+4. Navigate to http://localhost:3001/ to interact with the application
 
-Library versions for docker
-```
-node v18.16.0
-```
+## System architecture
+TODO:
 
-```
-cd frontend
-npm install
-npm run dev
-```
+## API definition
+TODO: should have 11 endpoints
+
+## Ports
+
+| Service       | Port  |
+| ------------- | ----- |
+| Database      | 5432  |
+| Frontend      | 3001  |
+| Backend       | 3000  |
