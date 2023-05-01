@@ -12,7 +12,9 @@ import {
     Create,
     useRecordContext,
     BooleanField,
-    required
+    required,
+    Show,
+    SimpleShowLayout
 } from 'react-admin'
 
 const UserTitle = () => {
@@ -50,4 +52,15 @@ export const UserCreate = () => (
             <BooleanInput source="isAdmin" validate={ required() } />
         </SimpleForm>
     </Create>
+)
+
+export const UserShow = () => (
+    <Show title={ <UserTitle />}>
+        <SimpleShowLayout>
+            <TextField source="username" />
+            <BooleanField source="isAdmin" />
+            <DateField source="createdAt" showTime />
+            <DateField source="updatedAt" showTime />
+        </SimpleShowLayout>
+    </Show>
 )
