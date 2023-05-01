@@ -2,14 +2,19 @@ const bcrypt = require('bcrypt')
 const express = require('express')
 const User = require('./models/user')
 const bodyparser = require('body-parser')
+const multer = require('multer')
 const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
 const passport = require('./controllers/passport')
 
 const app = express()
+const upload = multer({
+    limits: { fieldSize: 25 * 1024 * 1024 }
+})
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: false }))
+app.use(upload.array())
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
