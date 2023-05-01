@@ -39,9 +39,9 @@ TODO:
 | -------|---------------- | ---------------------- |
 | GET    | /users/         | Retrieve list of users |
 | POST   | /users/         | Create new user        |
-| GET    | /users/:userid  | Retrieve user by uuid  |
-| PUT    | /users/:userid  | Update user by uuid    |
-| DELETE | /users/:userid  | Delete user by uuid    |
+| GET    | /users/:userid  | Retrieve user by userid|
+| PUT    | /users/:userid  | Update user by userid  |
+| DELETE | /users/:userid  | Delete user by userid  |
 
 ### Files
 
@@ -49,7 +49,7 @@ TODO:
 | -------|---------------- | ---------------------- |
 | GET    | /files/         | Retrieve list of files |
 | POST   | /files/         | Create new file        |
-| GET    | /files/:fileid  | Retrieve file by uuid  |
+| GET    | /files/:fileid  | Retrieve file by fileid|
 
 ## Ports
 
