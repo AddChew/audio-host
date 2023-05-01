@@ -7,11 +7,14 @@ import authProvider from './data/authProvider'
 import UserIcon from '@mui/icons-material/Group'
 import AudioFileIcon from '@mui/icons-material/AudioFile'
 
-// TODO: we can if else here to show different stuff for admin and non admin
 const App = () => (
     <Admin authProvider={ authProvider } dataProvider={ dataProvider } dashboard={ Dashboard }>
         <Resource name="files" list={ FileList } create={ FileCreate } icon={ AudioFileIcon } show={ FileShow } />
-        <Resource name="users" list={ UserList } edit={ UserEdit } create={ UserCreate } icon={ UserIcon } />
+        {permissions => (
+            <>
+            {permissions.isAdmin ? <Resource name="users" list={ UserList } edit={ UserEdit } create={ UserCreate } icon={ UserIcon } /> : null}
+            </>
+        )}
     </Admin>
 )
 
