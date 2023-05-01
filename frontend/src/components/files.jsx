@@ -21,8 +21,8 @@ export const FileList = () => (
             <TextField source="filename" sortable={ false } />
             <TextField source="description" sortable={ false } />
             <TextField source="category" sortable={ false } />
-            <DateField source="createdAt" sortable={ false } />
-            <DateField source="updatedAt" sortable={ false } />
+            <DateField source="createdAt" sortable={ false } showTime />
+            <DateField source="updatedAt" sortable={ false } showTime />
             <ShowButton />
         </Datagrid>
     </List>
@@ -72,7 +72,7 @@ export const FileShow = () => (
             <TextField source="filename" />
             <TextField source="description" />
             <TextField source="category" />
-            <DateField source="createdAt" />
+            <DateField source="createdAt" showTime />
             <ShowAudioField source="content" />
         </SimpleShowLayout>
     </Show>

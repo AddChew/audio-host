@@ -24,8 +24,8 @@ export const UserList = () => (
         <Datagrid bulkActionButtons={false}>
             <TextField source="username" sortable={ false } />
             <BooleanField source="isAdmin" sortable={ false } />
-            <DateField source="createdAt" sortable={ false } />
-            <DateField source="updatedAt" sortable={ false } />
+            <DateField source="createdAt" sortable={ false } showTime />
+            <DateField source="updatedAt" sortable={ false } showTime />
             <EditButton />
         </Datagrid>
     </List>
