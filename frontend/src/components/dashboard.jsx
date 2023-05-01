@@ -6,7 +6,7 @@ export const Dashboard = () => {
     if (isLoading) return <>Loading...</>
     return (
         <Card>
-            <CardHeader title={ data.fullName } />
+            <CardHeader title={ `Welcome, ${data.fullName}!` } />
         </Card>
     )
 }

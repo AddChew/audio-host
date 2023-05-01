@@ -6,7 +6,8 @@ import {
     Create, 
     SimpleForm, 
     TextInput,
-    FileInput
+    FileInput,
+    FileField
 } from 'react-admin'
 
 export const FileList = () => (
@@ -24,7 +25,9 @@ export const FileList = () => (
 export const FileCreate = () => (
     <Create>
         <SimpleForm>
-            <FileInput source="content" />
+            <FileInput source="content" accept="audio/*">
+                <FileField source="src" title="title" />
+            </FileInput>
             <TextInput source="filename" />
             <TextInput source="description" />
             <TextInput source="category" />
