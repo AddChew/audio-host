@@ -25,7 +25,7 @@ export const FileList = () => (
 export const FileCreate = () => (
     <Create>
         <SimpleForm>
-            <FileInput source="content" accept="audio/*">
+            <FileInput source="content" accept="audio/*" maxSize={25000000}>
                 <FileField source="src" title="title" />
             </FileInput>
             <TextInput source="filename" />
