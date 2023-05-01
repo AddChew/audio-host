@@ -14,7 +14,8 @@ import {
     BooleanField,
     required,
     Show,
-    SimpleShowLayout
+    SimpleShowLayout,
+    ShowButton
 } from 'react-admin'
 
 const UserTitle = () => {
