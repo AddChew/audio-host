@@ -34,7 +34,7 @@ export const UserList = () => (
 export const UserEdit = () => (
     <Edit title={ <UserTitle />}> 
         <SimpleForm>
-            <TextInput source="username" />
+            <TextInput source="username" disabled />
             <PasswordInput source="password" />
             <BooleanInput source="isAdmin" />
         </SimpleForm>
