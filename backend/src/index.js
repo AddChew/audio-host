@@ -7,6 +7,8 @@ const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
 const passport = require('./controllers/passport')
+const swaggerUI = require('swagger-ui-express')
+const swaggerFile = require('../swagger-output.json')
 
 const app = express()
 const upload = multer({
@@ -32,6 +34,13 @@ app.use(passport.authenticate('session'))
 
 // test route
 app.get('/', (req, res, next) => {
+    // #swagger.tags = ['Test']
+    // #swagger.summary = 'Test route'
+    // #swagger.description = 'Test route to check if backend API service is up'
+    /* #swagger.responses[200] = {
+        description: 'Backend service is up.',
+        schema: { $ref: '#/definitions/Ok' }
+    } */
     res.send('Ok')
 })
 
@@ -43,6 +52,9 @@ app.use('/users/', require('./routes/users'))
 
 // file routes
 app.use('/files/', require('./routes/files'))
+
+// api documentation route
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // error handling
 app.use((err, req, res, next) => {

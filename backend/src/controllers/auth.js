@@ -2,7 +2,58 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const passport = require('./passport')
 
+
 exports.registerUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Register new user'
+    // #swagger.description = 'Route to register new user. Logs in new user and returns session cookie upon successful registration.'
+    /* #swagger.requestBody = {
+            required: true,
+            "@content": {
+                "multipart/form-data": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            username: {
+                                type: "string"
+                            },
+                            password: {
+                                type: "string",
+                                format: "password"
+                            }
+                        },
+                        required: ["username", "password"]
+                    }
+                }
+            }
+    } 
+    */
+    /* #swagger.responses[201] = {
+        description: 'Registered new user successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/RegisterUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are already logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'Username is already taken.'
+    }
+    */
     try {
         const { username, password } = req.body
         const user = await User.create({
@@ -27,6 +78,52 @@ exports.registerUser = async (req, res, next) => {
 }
 
 exports.loginUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Login existing user'
+    // #swagger.description = 'Route to login existing user and return session cookie.'
+    /* #swagger.requestBody = {
+            required: true,
+            "@content": {
+                "multipart/form-data": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            username: {
+                                type: "string"
+                            },
+                            password: {
+                                type: "string",
+                                format: "password"
+                            }
+                        },
+                        required: ["username", "password"]
+                    }
+                }
+            }
+    } 
+    */
+    /* #swagger.responses[200] = {
+        description: 'Logged in successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/LoginUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are already logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     passport.authenticate('login', (err, user, info, status) => {
         if (err) {
             return next(err)
@@ -47,6 +144,24 @@ exports.loginUser = async (req, res, next) => {
 }
 
 exports.logoutUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Log out user'
+    // #swagger.description = 'Route to logout logged in user and invalidate session cookie.'
+    /* #swagger.responses[204] = {
+        description: 'Logged out successfully.'
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     req.logout((err) => {
         if (err) {
             return next(err)
