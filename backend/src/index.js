@@ -34,6 +34,13 @@ app.use(passport.authenticate('session'))
 
 // test route
 app.get('/', (req, res, next) => {
+    // #swagger.tags = ['Test']
+    // #swagger.summary = 'Test route'
+    // #swagger.description = 'Test route to check if backend API service is up'
+    /* #swagger.responses[200] = {
+        description: 'Backend service is up.',
+        schema: { $ref: '#/definitions/Ok' }
+    } */
     res.send('Ok')
 })
 
