@@ -7,6 +7,8 @@ const session = require('express-session')
 const sequelize = require('./utils/connection')
 const sessionStore = require('./utils/session')
 const passport = require('./controllers/passport')
+const swaggerUI = require('swagger-ui-express')
+const swaggerFile = require('../swagger-output.json')
 
 const app = express()
 const upload = multer({
@@ -43,6 +45,9 @@ app.use('/users/', require('./routes/users'))
 
 // file routes
 app.use('/files/', require('./routes/files'))
+
+// api documentation route
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // error handling
 app.use((err, req, res, next) => {
