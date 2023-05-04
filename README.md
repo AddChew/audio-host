@@ -40,6 +40,8 @@ docker compose up -d
 
 ## API definition
 
+Navigate to http://localhost:3000/docs/ for the API documentation
+
 ### Authentication
 
 | Method | Endpoint        | Function          |

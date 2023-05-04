@@ -54,7 +54,7 @@ app.use('/users/', require('./routes/users'))
 app.use('/files/', require('./routes/files'))
 
 // api documentation route
-app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // error handling
 app.use((err, req, res, next) => {
