@@ -2,6 +2,7 @@ const File = require('../models/file')
 
 // get all files owned by current user
 exports.getFiles = async (req, res, next) => {
+    // #swagger.tags = ['Files']
     try {
         const user = await req.user
         const results = await File.findAndCountAll({
@@ -27,6 +28,7 @@ exports.getFiles = async (req, res, next) => {
 
 // get file by id, owned by current user
 exports.getFile = async (req, res, next) => {
+    // #swagger.tags = ['Files']
     try {
         const user = await req.user
         const file = await File.findOne({
@@ -48,6 +50,7 @@ exports.getFile = async (req, res, next) => {
 
 // create file
 exports.createFile = async (req, res, next) => {
+    // #swagger.tags = ['Files']
     try {
         const user = await req.user
         const { filename, description, category, content } = req.body

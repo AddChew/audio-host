@@ -2,7 +2,17 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const passport = require('./passport')
 
+/* #swagger.parameters['parameterName'] = {
+        in: <string>,
+        description: <string>,
+        required: <boolean>,
+        type: <string>,
+        format: <string>,
+        schema: <array>, <object> or <string>
+} */
+
 exports.registerUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
     try {
         const { username, password } = req.body
         const user = await User.create({
@@ -27,6 +37,7 @@ exports.registerUser = async (req, res, next) => {
 }
 
 exports.loginUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
     passport.authenticate('login', (err, user, info, status) => {
         if (err) {
             return next(err)
@@ -47,6 +58,7 @@ exports.loginUser = async (req, res, next) => {
 }
 
 exports.logoutUser = async (req, res, next) => {
+    // #swagger.tags = ['Authentication']
     req.logout((err) => {
         if (err) {
             return next(err)

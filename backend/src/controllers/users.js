@@ -3,6 +3,7 @@ const User = require('../models/user')
 
 // get all users
 exports.getUsers = async (req, res, next) => {
+    // #swagger.tags = ['Users']
     try {
         const results = await User.findAndCountAll({
             attributes: {
@@ -24,6 +25,7 @@ exports.getUsers = async (req, res, next) => {
 
 // get user by id
 exports.getUser = async (req, res, next) => {
+    // #swagger.tags = ['Users']
     try {
         const user = await User.findByPk(req.params.userid, {
             attributes: {
@@ -43,6 +45,7 @@ exports.getUser = async (req, res, next) => {
 
 // create user
 exports.createUser = async (req, res, next) => {
+    // #swagger.tags = ['Users']
     try {
         const { username, password, isAdmin } = req.body
         const user = await User.create({
@@ -64,6 +67,7 @@ exports.createUser = async (req, res, next) => {
 
 // update user
 exports.updateUser = async (req, res, next) => {
+    // #swagger.tags = ['Users']
     try {
         let user = await User.findByPk(req.params.userid)
         const { username, password, isAdmin } = req.body
@@ -84,6 +88,7 @@ exports.updateUser = async (req, res, next) => {
 
 // delete user
 exports.deleteUser = async (req, res, next) => {
+    // #swagger.tags = ['Users']
     try {
         const user = await User.findByPk(req.params.userid)
         if (user) {
