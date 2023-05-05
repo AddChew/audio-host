@@ -113,6 +113,17 @@ exports.loginUser = async (req, res, next) => {
         }
     }
     */
+    /* #swagger.responses[401] = {
+        description: 'Incorrect username or password.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     /* #swagger.responses[403] = {
         description: 'You are already logged in.',
         content: {
@@ -129,7 +140,7 @@ exports.loginUser = async (req, res, next) => {
             return next(err)
         }
         if (!user) {
-            return next(info)
+            return res.status(401).json(info)
         }
         req.login(user, err => {
             if (err) {
