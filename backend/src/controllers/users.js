@@ -108,6 +108,74 @@ exports.createUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Create new user'
     // #swagger.description = 'Route to create new user.'
+    /* #swagger.requestBody = {
+            required: true,
+            "@content": {
+                "multipart/form-data": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            username: {
+                                type: "string"
+                            },
+                            password: {
+                                type: "string",
+                                format: "password"
+                            },
+                            isAdmin: {
+                                type: "boolean"
+                            }
+                        },
+                        required: ["username", "password", "isAdmin"]
+                    }
+                }
+            }
+    } 
+    */
+    /* #swagger.responses[201] = {
+        description: 'Created new user successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/RegisterUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are not authorized to perform this operation.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'Resource not found.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     try {
         const { username, password, isAdmin } = req.body
         const user = await User.create({
