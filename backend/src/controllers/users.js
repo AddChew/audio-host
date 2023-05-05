@@ -4,6 +4,64 @@ const User = require('../models/user')
 // get all users
 exports.getUsers = async (req, res, next) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Retrieve list of users'
+    // #swagger.description = 'Route to retrieve list of users.'
+    /* #swagger.parameters['limit'] = {
+        in: 'query',
+        description: 'Max number of records returned per page',
+        schema: "10"
+    }
+    */
+    /* #swagger.parameters['offset'] = {
+        in: 'query',
+        description: 'Number of records to skip',
+        schema: "0"
+    }
+    */
+    /* #swagger.responses[200] = {
+        description: 'Retrieved list of users successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/ListUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are not authorized to perform this operation.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'Resource not found.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     try {
         const results = await User.findAndCountAll({
             attributes: {
@@ -26,6 +84,8 @@ exports.getUsers = async (req, res, next) => {
 // get user by id
 exports.getUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Retrieve user details based on userid'
+    // #swagger.description = 'Route to retrieve user details based on userid.'
     try {
         const user = await User.findByPk(req.params.userid, {
             attributes: {
@@ -46,6 +106,8 @@ exports.getUser = async (req, res, next) => {
 // create user
 exports.createUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Create new user'
+    // #swagger.description = 'Route to create new user.'
     try {
         const { username, password, isAdmin } = req.body
         const user = await User.create({
@@ -68,6 +130,8 @@ exports.createUser = async (req, res, next) => {
 // update user
 exports.updateUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Update user details'
+    // #swagger.description = 'Route to update user details.'
     try {
         let user = await User.findByPk(req.params.userid)
         const { username, password, isAdmin } = req.body
@@ -89,6 +153,8 @@ exports.updateUser = async (req, res, next) => {
 // delete user
 exports.deleteUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Delete user'
+    // #swagger.description = 'Route to delete existing user.'
     try {
         const user = await User.findByPk(req.params.userid)
         if (user) {
