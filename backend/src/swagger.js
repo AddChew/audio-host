@@ -5,7 +5,7 @@ const doc = {
         title: 'Audio Host Backend API',
         description: 'API documentation for Audio Host backend'
     },
-    host: 'localhost:3000',
+    host: null,
     schemes: ['http'],
     definitions: {
         Ok: 'Ok',
@@ -38,6 +38,12 @@ const doc = {
             user: {
                 $ref: '#/definitions/LoggedInUser'
             }
+        },
+        ListUser: {
+            count: 10,
+            rows: [{
+                $ref: '#/definitions/BaseUser'
+            }]
         }
     }
 }
