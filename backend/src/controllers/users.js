@@ -166,14 +166,7 @@ exports.createUser = async (req, res, next) => {
     }
     */
     /* #swagger.responses[404] = {
-        description: 'Resource not found.',
-        content: {
-            "application/json": {
-                schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
-                }
-            }
-        }
+        description: 'Username is already taken.'
     }
     */
     try {
