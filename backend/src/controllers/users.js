@@ -86,6 +86,48 @@ exports.getUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Retrieve user details based on userid'
     // #swagger.description = 'Route to retrieve user details based on userid.'
+    /* #swagger.parameters['userid'] = {
+        in: 'path',
+        description: 'Unique identifier of user'
+    }
+    */
+    /* #swagger.responses[200] = {
+        description: 'Retrieved user details successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/DetailUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are not authorized to perform this operation.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'User not found.'
+    }
+    */
     try {
         const user = await User.findByPk(req.params.userid, {
             attributes: {
