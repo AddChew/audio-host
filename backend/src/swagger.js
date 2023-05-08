@@ -44,6 +44,11 @@ const doc = {
             rows: [{
                 $ref: '#/definitions/BaseUser'
             }]
+        },
+        DetailUser: {
+            user: {
+                $ref: '#/definitions/BaseUser'
+            }            
         }
     }
 }
