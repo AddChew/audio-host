@@ -235,13 +235,80 @@ exports.updateUser = async (req, res, next) => {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Update user details'
     // #swagger.description = 'Route to update user details.'
+    /* #swagger.parameters['userid'] = {
+        in: 'path',
+        description: 'Unique identifier of user'
+    }
+    */
+    /* #swagger.requestBody = {
+            required: true,
+            "@content": {
+                "multipart/form-data": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            username: {
+                                type: "string"
+                            },
+                            password: {
+                                type: "string",
+                                format: "password"
+                            },
+                            isAdmin: {
+                                type: "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+    } 
+    */
+    /* #swagger.responses[200] = {
+        description: 'Updated user details successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/RegisterUser"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[403] = {
+        description: 'You are not authorized to perform this operation.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'User not found.'
+    }
+    */
     try {
         let user = await User.findByPk(req.params.userid)
         const { username, password, isAdmin } = req.body
         if (user) {
             user.username = username ? username : user.username
             user.password = password ? bcrypt.hashSync(password, 10) : user.password
-            user.isAdmin = isAdmin === undefined ? user.isAdmin : isAdmin
+            if ((isAdmin === false) || (isAdmin)) {
+                user.isAdmin = isAdmin
+            }
             user = await user.save()
             return res.status(200).json({ message: 'User updated', user: user })
         }
