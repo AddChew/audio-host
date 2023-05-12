@@ -49,7 +49,22 @@ const doc = {
             user: {
                 $ref: '#/definitions/BaseUser'
             }            
-        }
+        },
+        BaseFile: {
+            id: 'uuid',
+            filename: 'filename',
+            description: 'description',
+            category: 'category',
+            createdAt: '1900-01-01T00:00:00.00Z',
+            updatedAt: '1900-01-01T00:00:00.00Z',
+            ownerid: 'owneruuid'
+        }, 
+        ListFile: {
+            count: 10,
+            rows: [{
+                $ref: '#/definitions/BaseFile'
+            }]
+        }      
     }
 }
 

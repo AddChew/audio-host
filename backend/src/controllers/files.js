@@ -3,6 +3,53 @@ const File = require('../models/file')
 // get all files owned by current user
 exports.getFiles = async (req, res, next) => {
     // #swagger.tags = ['Files']
+    // #swagger.summary = 'Retrieve list of files uploaded by current user'
+    // #swagger.description = 'Route to retrieve list of files uploaded by current user.'
+    /* #swagger.parameters['limit'] = {
+        in: 'query',
+        description: 'Max number of records returned per page',
+        schema: "10"
+    }
+    */
+    /* #swagger.parameters['offset'] = {
+        in: 'query',
+        description: 'Number of records to skip',
+        schema: "0"
+    }
+    */
+    /* #swagger.responses[200] = {
+        description: 'Retrieved list of files uploaded by current user successfully.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/ListFile"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[401] = {
+        description: 'You are not logged in.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
+    /* #swagger.responses[404] = {
+        description: 'Resource not found.',
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/definitions/UnauthorizedMessage"
+                }
+            }
+        }
+    }
+    */
     try {
         const user = await req.user
         const results = await File.findAndCountAll({
