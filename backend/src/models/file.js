@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
-const db = require('../utils/connection')
+const { sequelize } = require('../utils/connection')
 
-const File = db.define('File', 
+const File = sequelize.define('File', 
     {
         id: {
             type: DataTypes.UUID,

@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize')
-
 const sequelize = new Sequelize(
     process.env.PG_DB,
     process.env.PG_USER,
@@ -10,4 +9,5 @@ const sequelize = new Sequelize(
     }
 )
 
-module.exports = sequelize
+exports.sequelize = sequelize
+exports.queryInterface = sequelize.getQueryInterface()
