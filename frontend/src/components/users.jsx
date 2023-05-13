@@ -25,7 +25,7 @@ const UserTitle = () => {
 
 export const UserList = () => (
     <List>
-        <Datagrid bulkActionButtons={false}>
+        <Datagrid>
             <TextField source="username" />
             <BooleanField source="isAdmin" />
             <DateField source="createdAt" showTime />

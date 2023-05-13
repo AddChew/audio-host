@@ -18,7 +18,7 @@ import * as React from "react"
 
 export const FileList = () => (
     <List>
-        <Datagrid bulkActionButtons={false}>
+        <Datagrid>
             <TextField source="filename" />
             <TextField source="description" />
             <TextField source="category" />
