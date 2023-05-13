@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize')
-const db = require('../utils/connection')
+const { sequelize } = require('../utils/connection')
 const File = require('../models/file')
 
-const User = db.define('User', 
+const User = sequelize.define('User', 
     {
         id: {
             type: DataTypes.UUID,
@@ -38,7 +38,8 @@ const User = db.define('User',
 )
 
 User.hasMany(File, {
-    foreignKey: 'ownerid'
+    foreignKey: 'ownerid',
+    onDelete: 'cascade'
 })
 File.belongsTo(User, {
     foreignKey: 'ownerid'

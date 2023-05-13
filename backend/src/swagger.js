@@ -8,33 +8,33 @@ const doc = {
     host: null,
     schemes: ['http'],
     definitions: {
-        Ok: 'Ok',
-        UnauthorizedMessage: {
-            message: 'Error message.'
+        Ok: 'string',
+        Message: {
+            message: 'string'
         },
         BaseUser: {
-            id: 'uuid',
-            username: 'yourusername',
+            id: 'string',
+            username: 'string',
             isAdmin: false,
-            createdAt: '1900-01-01T00:00:00.00Z',
-            updatedAt: '1900-01-01T00:00:00.00Z',
+            createdAt: 'string',
+            updatedAt: 'string',
         },
         LoggedInUser: {
-            id: 'uuid',
-            username: 'yourusername',
-            password: 'yourhashedpassword',
+            id: 'string',
+            username: 'string',
+            password: 'string',
             isAdmin: false,
-            createdAt: '1900-01-01T00:00:00.00Z',
-            updatedAt: '1900-01-01T00:00:00.00Z',
+            createdAt: 'string',
+            updatedAt: 'string',
         },
         RegisterUser: {
-            message: 'Success message',
+            message: 'string',
             user: {
                 $ref: '#/definitions/BaseUser'
             }
         },
         LoginUser: {
-            message: 'Success message',
+            message: 'string',
             user: {
                 $ref: '#/definitions/LoggedInUser'
             }
@@ -49,7 +49,22 @@ const doc = {
             user: {
                 $ref: '#/definitions/BaseUser'
             }            
-        }
+        },
+        BaseFile: {
+            id: 'string',
+            filename: 'string',
+            description: 'string',
+            category: 'string',
+            createdAt: 'string',
+            updatedAt: 'string',
+            ownerid: 'string'
+        }, 
+        ListFile: {
+            count: 10,
+            rows: [{
+                $ref: '#/definitions/BaseFile'
+            }]
+        }      
     }
 }
 

@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt')
+const { Op } = require('sequelize')
 const User = require('../models/user')
+const { queryInterface } = require('../utils/connection')
 
 // get all users
 exports.getUsers = async (req, res, next) => {
@@ -34,7 +36,7 @@ exports.getUsers = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -45,7 +47,7 @@ exports.getUsers = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -56,7 +58,7 @@ exports.getUsers = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -68,7 +70,7 @@ exports.getUsers = async (req, res, next) => {
                 exclude: ['password']
             },
             order: [
-                ['createdAt', 'DESC']
+                JSON.parse(req.query.sort)
             ],
             limit: req.query.limit,
             offset: req.query.offset
@@ -107,7 +109,7 @@ exports.getUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -118,7 +120,7 @@ exports.getUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -190,7 +192,7 @@ exports.createUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -201,7 +203,7 @@ exports.createUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -279,7 +281,7 @@ exports.updateUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -290,7 +292,7 @@ exports.updateUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -335,7 +337,7 @@ exports.deleteUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/RegisterUser"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -346,7 +348,7 @@ exports.deleteUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -357,7 +359,7 @@ exports.deleteUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -375,9 +377,25 @@ exports.deleteUser = async (req, res, next) => {
         })
         if (user) {
             await user.destroy()
-            return res.status(200).json({ message: 'User deleted', user: user })
+            return res.status(200).json({ message: 'User deleted' })
         }
         return res.status(404).json({ message: 'User not found'})
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(404).json(err)
+    }
+}
+
+// bulk delete users
+exports.deleteManyUsers = async (req, res, next) => {
+    try {
+        await queryInterface.bulkDelete('Users', {
+            id: {
+                [Op.in]: JSON.parse(req.query.filter).id
+            }
+        })
+        return res.status(200).json({ message: 'Deleted users successfully'})
     }
     catch (err) {
         console.log(err)

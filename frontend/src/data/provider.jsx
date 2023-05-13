@@ -12,8 +12,9 @@ const convertFileToBase64 = file =>
 export default {
     getList: (resource, params) => {
         const { page, perPage } = params.pagination
+        const { field, order } = params.sort
         const offset = (page - 1) * perPage
-        const url = `/${resource}?limit=${perPage}&offset=${offset}`
+        const url = `/${resource}?sort=["${field}","${order}"]&limit=${perPage}&offset=${offset}`
         return httpClient(url)
             .then(response => response.json)
             .then(({ count, rows }) => {
@@ -67,5 +68,11 @@ export default {
         httpClient(`${resource}/${params.id}`, {
             method: 'DELETE',
         })
-        .then(response => ({ data: Object.values(response.json)[1] })),
+        .then(response => ({ data: Object.values(response.json)[0] })),
+
+    deleteMany: (resource, params) => 
+        httpClient(`${resource}?filter={"id":${JSON.stringify(params.ids)}}`, {
+            method: 'DELETE',
+        })
+        .then(response => ({ data: params.ids }))
 }

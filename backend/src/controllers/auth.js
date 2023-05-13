@@ -44,7 +44,7 @@ exports.registerUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -118,7 +118,7 @@ exports.loginUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -129,7 +129,7 @@ exports.loginUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -167,7 +167,7 @@ exports.logoutUser = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
