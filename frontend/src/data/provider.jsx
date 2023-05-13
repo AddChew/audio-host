@@ -68,5 +68,11 @@ export default {
         httpClient(`${resource}/${params.id}`, {
             method: 'DELETE',
         })
-        .then(response => ({ data: Object.values(response.json)[1] })),
+        .then(response => ({ data: Object.values(response.json)[0] })),
+
+    deleteMany: (resource, params) => 
+        httpClient(`${resource}?filter={"id":${JSON.stringify(params.ids)}}`, {
+            method: 'DELETE',
+        })
+        .then(response => ({ data: params.ids }))
 }

@@ -388,24 +388,17 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 // bulk delete users
-// exports.deleteManyUsers = async (req, res, next) => {
-//     try {
-//         queryInterface.bulkDelete('Users', {})
-//     }
-//     catch (err) {
-//         console.log(err)
-//         return res.status(404).json(err)
-//     }
-    // try {
-    //     const user = await User.findByPk(req.params.userid, {
-    //         attributes: {
-    //             exclude: ['password']
-    //         }
-    //     })
-    //     if (user) {
-    //         await user.destroy()
-    //         return res.status(200).json({ message: 'User deleted', user: user })
-    //     }
-    //     return res.status(404).json({ message: 'User not found'})
-    // }
-// }
+exports.deleteManyUsers = async (req, res, next) => {
+    try {
+        await queryInterface.bulkDelete('Users', {
+            id: {
+                [Op.in]: JSON.parse(req.query.filter).id
+            }
+        })
+        return res.status(200).json({ message: 'Deleted users successfully'})
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(404).json(err)
+    }
+}
