@@ -33,7 +33,7 @@ exports.getFiles = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
@@ -44,7 +44,7 @@ exports.getFiles = async (req, res, next) => {
         content: {
             "application/json": {
                 schema: {
-                    $ref: "#/definitions/UnauthorizedMessage"
+                    $ref: "#/definitions/Message"
                 }
             }
         }
