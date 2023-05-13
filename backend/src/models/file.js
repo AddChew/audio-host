@@ -12,7 +12,7 @@ const File = sequelize.define('File',
         filename: DataTypes.STRING,
         description: DataTypes.STRING,
         category: DataTypes.STRING,
-        content: DataTypes.TEXT('long')
+        content: DataTypes.TEXT
     },
     {
         hooks: {

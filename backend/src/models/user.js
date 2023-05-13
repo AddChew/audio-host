@@ -38,7 +38,8 @@ const User = sequelize.define('User',
 )
 
 User.hasMany(File, {
-    foreignKey: 'ownerid'
+    foreignKey: 'ownerid',
+    onDelete: 'cascade'
 })
 File.belongsTo(User, {
     foreignKey: 'ownerid'
