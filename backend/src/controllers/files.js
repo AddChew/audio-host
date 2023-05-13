@@ -60,7 +60,7 @@ exports.getFiles = async (req, res, next) => {
                 ownerid: user.id
             },
             order: [
-                ['createdAt', 'DESC']
+                JSON.parse(req.query.sort)
             ],
             limit: req.query.limit,
             offset: req.query.offset

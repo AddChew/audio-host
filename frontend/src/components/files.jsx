@@ -19,11 +19,11 @@ import * as React from "react"
 export const FileList = () => (
     <List>
         <Datagrid bulkActionButtons={false}>
-            <TextField source="filename" sortable={ false } />
-            <TextField source="description" sortable={ false } />
-            <TextField source="category" sortable={ false } />
-            <DateField source="createdAt" sortable={ false } showTime />
-            <DateField source="updatedAt" sortable={ false } showTime />
+            <TextField source="filename" />
+            <TextField source="description" />
+            <TextField source="category" />
+            <DateField source="createdAt" showTime />
+            <DateField source="updatedAt" showTime />
             <ShowButton />
         </Datagrid>
     </List>
