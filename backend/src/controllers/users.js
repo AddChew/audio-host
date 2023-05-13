@@ -68,7 +68,7 @@ exports.getUsers = async (req, res, next) => {
                 exclude: ['password']
             },
             order: [
-                ['createdAt', 'DESC']
+                JSON.parse(req.query.sort)
             ],
             limit: req.query.limit,
             offset: req.query.offset
